@@ -1,0 +1,16 @@
+{% extends 'loan/base.html' %}
+
+{% block content %}
+  <h1>Add Customer</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="num_forms" value="{{ forms|length }}">
+
+    
+      {{ form.as_p }}
+    
+
+    <button type="submit">Save</button>
+  </form>
+{% endblock %}

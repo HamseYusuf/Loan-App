@@ -1,0 +1,26 @@
+{% extends 'loan/base.html' %}
+
+{% block content %}
+<h1>All Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>customer Name</th>
+      <th>customer email  </th>
+      <th>customer phone number    </th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    {% for cus in customers %}
+    <tr>
+      <td>{{ cus.customer_name }}</td>
+      <td>{{ cus.customer_email }}</td>
+      <td>{{ cus.customer_phone_number }}</td>
+      
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

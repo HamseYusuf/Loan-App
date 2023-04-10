@@ -1,0 +1,24 @@
+{% extends 'loan/base.html' %}
+
+{% block content %}
+<h1>All Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item Name</th>
+      <th>Item Price</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+      <td>{{ item.item_name }}</td>
+      <td>{{ item.item_price }}</td>
+      
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
