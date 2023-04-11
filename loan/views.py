@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Loan, Item, Customer
 from .forms import LoanForm, ItemForm, CustomerForm
+from django.contrib import messages
+
 
 def loan_list(request):
     loans = Loan.objects.all()
@@ -59,15 +61,14 @@ def customer_create(request):
 
 def loan_create(request):
     if request.method == 'POST':
-        num_forms = int(request.POST.get('num_forms'))  # Get the number of forms submitted
-        forms = [LoanForm(request.POST, prefix=str(i)) for i in range(num_forms)]
-
-        if all([form.is_valid() for form in forms]):
-            for form in forms:
-                form.save()
-            return redirect('loan_list')
+        form = LoanForm(request.POST)
+        if form.is_valid():
+            loan = form.save()
+            messages.success(request, 'Loan submitted successfully!')
+            return redirect('loan_create')
     else:
-        forms = [LoanForm(prefix=str(i)) for i in range(3)]  # Default to 3 blank forms
+        form = LoanForm()
 
-    context = {'forms': forms}
+    context = {'form': form}
     return render(request, 'loan/loan_form.html', context)
+
