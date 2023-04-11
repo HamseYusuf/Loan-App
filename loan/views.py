@@ -65,11 +65,39 @@ def customer_create(request):
     return render(request, 'loan/customer_form.html', context)
 
 def customer_detail(request, pk):
-    customer = get_object_or_404(Customer, pk=pk)
+    customer = Customer.objects.get(pk=pk)
+    loans = customer.loan_set.all()
+    total_price = sum(loan.get_total_price() for loan in loans)
+    
+   
+    
     context = {
-        'customer': customer
+        'customer': customer,
+        'loans': loans,
+        'total_price': total_price,
+        
     }
     return render(request, 'loan/customer_detail.html', context)
+
+def customer_loan(request, pk):
+    customer = Customer.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = LoanForm(request.POST)
+        if form.is_valid():
+            loan = form.save(commit=False)
+            loan.customer = customer
+            loan.save()
+            messages.success(request, 'Loan submitted successfully!')
+            return redirect('customer_loan', pk=pk)
+    else:
+        form = LoanForm(initial={'customer': customer})
+    context = {
+        'customer': customer,
+        'form': form
+    }
+    return render(request, 'loan/loan_form.html', context)
+
+
 
 def loan_create(request):
     if request.method == 'POST':
