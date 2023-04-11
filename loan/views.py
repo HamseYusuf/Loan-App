@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Loan, Item, Customer
 from .forms import LoanForm, ItemForm, CustomerForm
 from django.contrib import messages
@@ -11,8 +11,10 @@ def loan_list(request):
     }
     return render(request, 'loan/loan_list.html', context)
 
+
 def dashboard(request):
     return render(request, 'loan/dashboard.html')
+
 
 def items(request):
     items = Item.objects.all()
@@ -21,12 +23,14 @@ def items(request):
     }
     return render(request, 'loan/items.html', context)
 
+
 def customer(request):
     customers = Customer.objects.all()
     context = {
         'customers': customers
     }
     return render(request, 'loan/customers.html', context)
+
 
 def add_loan(request):
     form = LoanForm(request.POST or None)
@@ -38,6 +42,7 @@ def add_loan(request):
     }
     return render(request, 'loan/loan_form.html', context)
 
+
 def item_create(request):
     form = ItemForm(request.POST or None)
     if form.is_valid():
@@ -47,6 +52,7 @@ def item_create(request):
         'form': form
     }
     return render(request, 'loan/item_form.html', context)
+
 
 def customer_create(request):
     form = CustomerForm(request.POST or None)
@@ -58,6 +64,12 @@ def customer_create(request):
     }
     return render(request, 'loan/customer_form.html', context)
 
+def customer_detail(request, pk):
+    customer = get_object_or_404(Customer, pk=pk)
+    context = {
+        'customer': customer
+    }
+    return render(request, 'loan/customer_detail.html', context)
 
 def loan_create(request):
     if request.method == 'POST':
@@ -72,3 +84,35 @@ def loan_create(request):
     context = {'form': form}
     return render(request, 'loan/loan_form.html', context)
 
+
+def loan_detail(request, pk):
+    loan = get_object_or_404(Loan, pk=pk)
+    context = {
+        'loan': loan
+    }
+    return render(request, 'loan/loan_detail.html', context)
+
+
+def loan_update(request, pk):
+    loan = get_object_or_404(Loan, pk=pk)
+    form = LoanForm(request.POST or None, instance=loan)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Loan updated successfully!')
+        return redirect('loan_list')
+    context = {
+        'form': form
+    }
+    return render(request, 'loan/loan_form.html', context)
+
+
+def loan_delete(request, pk):
+    loan = get_object_or_404(Loan, pk=pk)
+    if request.method == 'POST':
+        loan.delete()
+        messages.success(request, 'Loan deleted successfully!')
+        return redirect('loan_list')
+    context = {
+        'loan': loan
+    }
+    return render(request, 'loan/loan_confirm_delete.html', context)

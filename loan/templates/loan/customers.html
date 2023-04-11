@@ -1,24 +1,24 @@
 {% extends 'loan/base.html' %}
 
 {% block content %}
-<h1>All Items</h1>
+<h1>All Customers</h1>
 
 <table>
   <thead>
     <tr>
-      <th>customer Name</th>
-      <th>customer email  </th>
-      <th>customer phone number    </th>
-      
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone Number</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
-    {% for cus in customers %}
+    {% for customer in customers %}
     <tr>
-      <td>{{ cus.customer_name }}</td>
-      <td>{{ cus.customer_email }}</td>
-      <td>{{ cus.customer_phone_number }}</td>
-      
+      <td>{{ customer.customer_name }}</td>
+      <td>{{ customer.customer_email }}</td>
+      <td>{{ customer.customer_phone_number }}</td>
+      <td><a href="{% url 'customer_detail' customer.pk %}">Details</a></td>
     </tr>
     {% endfor %}
   </tbody>

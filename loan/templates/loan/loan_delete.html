@@ -1,0 +1,10 @@
+{% extends "loan/base.html" %}
+
+{% block content %}
+  <h1>Delete Loan Application</h1>
+  <form method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to delete "{{ loan }}"?</p>
+    <button type="submit">Yes, delete</button>
+  </form>
+{% endblock %}

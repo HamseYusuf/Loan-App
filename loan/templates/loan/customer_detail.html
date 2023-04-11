@@ -1,0 +1,22 @@
+{% extends 'loan/base.html' %}
+
+{% block content %}
+<h1>Customer Detail</h1>
+
+<table>
+  <tbody>
+    <tr>
+      <th>Customer Name:</th>
+      <td>{{ customer.customer_name }}</td>
+    </tr>
+    <tr>
+      <th>Email:</th>
+      <td>{{ customer.customer_email }}</td>
+    </tr>
+    <tr>
+      <th>Phone Number:</th>
+      <td>{{ customer.customer_phone_number }}</td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "loan/base.html" %}
+
+{% block content %}
+  <h1>Loan Application Detail</h1>
+  <ul>
+    <li>Customer Name: {{ loan.customer.name }}</li>
+    <li>Item Name: {{ loan.item.name }}</li>
+    <li>Quantity: {{ loan.quantity }}</li>
+    <li>Starting Date: {{ loan.starting_date }}</li>
+    <li>Ending Date: {{ loan.ending_date }}</li>
+  </ul>
+  <a href="{% url 'loan_update' loan.id %}">Update</a> |
+  <a href="{% url 'loan_delete' loan.id %}">Delete</a>
+{% endblock %}

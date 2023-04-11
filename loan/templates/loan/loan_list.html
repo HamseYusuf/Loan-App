@@ -12,6 +12,7 @@
       <th>Start Date</th>
       <th>End Date</th>
       <th>Total Price</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -23,6 +24,7 @@
       <td>{{ loan.starting_date }}</td>
       <td>{{ loan.ending_date }}</td>
       <td>{{ loan.total_price }}</td>
+      <td><a href="{% url 'loan_detail' loan.id %}">View Details</a></td>
     </tr>
     {% endfor %}
   </tbody>
