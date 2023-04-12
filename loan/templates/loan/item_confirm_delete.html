@@ -1,0 +1,17 @@
+{% extends 'loan/base.html' %}
+
+{% block content %}
+  <h1>Delete Item</h1>
+  <p>Are you sure you want to delete "{{ item.item_name }}"?</p>
+  <form action="{% url 'item_delete' item.id %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Delete" class="btn btn-danger">
+    <a href="{% url 'item_detail' item.id %}" class="btn btn-secondary">Cancel</a>
+  </form>
+  <br>
+  {% if deleted %}
+    <div class="alert alert-success" role="alert">
+      The item "{{ item.item_name }}" has been deleted.
+    </div>
+  {% endif %}
+{% endblock %}

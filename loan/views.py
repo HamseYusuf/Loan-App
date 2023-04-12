@@ -53,6 +53,37 @@ def item_create(request):
     }
     return render(request, 'loan/item_form.html', context)
 
+def item_detail(request, pk):
+    item  = Item.objects.get(pk=pk)
+    context ={
+        'item' : item
+    }
+    return render (request , 'loan/item_detail.html' , context)
+
+
+def item_update(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    form = ItemForm(request.POST or None, instance=item)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'item updated successfully!')
+        return redirect('items')
+    context = {
+        'form': form
+    }
+    return render(request, 'loan/item_form.html', context)
+
+def item_delete(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    if request.method == 'POST':
+        item.delete()
+        messages.success(request, 'Item deleted successfully!')
+        return redirect('items')
+    context = {
+        'item': item
+    }
+    return render(request, 'loan/item_confirm_delete.html', context)
+
 
 def customer_create(request):
     form = CustomerForm(request.POST or None)

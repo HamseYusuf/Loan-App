@@ -1,0 +1,12 @@
+{% extends 'loan/base.html' %}
+
+{% block content %}
+  <h1>Item Detail</h1>
+  <p>Name: {{ item.item_name }}</p>
+  
+  <p>Price: ${{ item.item_price }}</p>
+  <p>
+    <a href="{% url 'item_update' item.pk %}">Edit</a> |
+    <a href="{% url 'item_delete' item.pk %}">Delete</a>
+  </p>
+{% endblock %}
