@@ -20,4 +20,4 @@ class ItemForm(forms.ModelForm):
 class CustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = ['customer_name', 'customer_email', 'customer_phone_number']
+        fields = ['customer_name', 'customer_email', 'customer_phone_number' , "customer_address"]

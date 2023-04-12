@@ -1,57 +1,60 @@
 {% extends 'loan/base.html' %}
 
 {% block content %}
-  <h1>Customer Detail</h1>
+<div class="grid grid-cols-12 gap-0 m-5">
+  <div class="col-span-10 col-start-3">
+    <h1 class="text-2xl font-semibold mb-5">Customer Detail</h1>
 
-  <h2>{{ customer.customer_name }}</h2>
-  <p>Email: {{ customer.customer_email }}</p>
-  <p>Phone Number: {{ customer.customer_phone_number }}</p>
-  
+    <div class="mb-10">
+      <h2 class="text-xl font-semibold">{{ customer.customer_name }}</h2>
+      <p class="text-sm text-gray-500">Email: {{ customer.customer_email }}</p>
+      <p class="text-sm text-gray-500">Phone Number: {{ customer.customer_phone_number }}</p>
+    </div>
 
-  <h3>Loans:</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Item Name</th>
-        <th>Quantity</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Total Price</th>
-        <th>Loan Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% if customer.loan_set.all %}
-        {% for loan in customer.loan_set.all %}
-          {% if loan.ending_date == loan.starting_date %}
-            <tr>
-              <td>{{ loan.item.item_name }}</td>
-              <td>{{ loan.quantity }}</td>
-              <td>{{ loan.starting_date }}</td>
-              <td>{{ loan.ending_date }}</td>
-              <td> $ {{ loan.get_total_price }}</td>
-              <td>Is Due</td>
-              
-
-            </tr>
+    <div class="mb-10">
+      <h3 class="text-lg font-semibold mb-3">Loans:</h3>
+      <table class="table-auto w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-4 py-3">Item Name</th>
+            <th scope="col" class="px-4 py-3">Quantity</th>
+            <th scope="col" class="px-4 py-3">Start Date</th>
+            <th scope="col" class="px-4 py-3">End Date</th>
+            <th scope="col" class="px-4 py-3">Total Price</th>
+            <th scope="col" class="px-4 py-3">Loan Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if customer.loan_set.all %}
+            {% for loan in customer.loan_set.all %}
+              {% if loan.ending_date == loan.starting_date %}
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <td class="px-4 py-3">{{ loan.item.item_name }}</td>
+                  <td class="px-4 py-3">{{ loan.quantity }}</td>
+                  <td class="px-4 py-3">{{ loan.starting_date }}</td>
+                  <td class="px-4 py-3">{{ loan.ending_date }}</td>
+                  <td class="px-4 py-3">$ {{ loan.get_total_price }}</td>
+                  <td class="px-4 py-3">Is Due</td>
+                </tr>
+              {% else %}
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <td class="px-4 py-3">{{ loan.item.item_name }}</td>
+                  <td class="px-4 py-3">{{ loan.quantity }}</td>
+                  <td class="px-4 py-3">{{ loan.starting_date }}</td>
+                  <td class="px-4 py-3">{{ loan.ending_date }}</td>
+                  <td class="px-4 py-3">$ {{ loan.get_total_price }}</td>
+                  <td class="px-4 py-3">Active</td>
+                </tr>
+              {% endif %}
+            {% endfor %}
           {% else %}
-            <tr>
-              <td>{{ loan.item.item_name }}</td>
-              <td>{{ loan.quantity }}</td>
-              <td>{{ loan.starting_date }}</td>
-              <td>{{ loan.ending_date }}</td>
-              <td> $ {{ loan.get_total_price}}</td>
-              <td>Active</td>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <td colspan="6" class="px-4 py-3">No loans found for this customer.</td>
             </tr>
           {% endif %}
-        {% endfor %}
-      {% else %}
-        <tr>
-          <td colspan="6">No loans found for this customer.</td>
-        </tr>
-      {% endif %}
-    </tbody>
-  </table>
-  <h3>Total : $ {{ total_price }}</h3>
-  <a href="{% url 'customer_loan' customer.pk %}" class="btn btn-primary">Add Loan</a>
-{% endblock %}
+        </tbody>
+      </table>
+      <h3 class="text-lg font-medium mb-4 mt-4 ">Total: ${{ total_price }}</h3>
+<a href="{% url 'customer_loan' customer.pk %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm text-sm">Add Loan</a>
+
+{% endblock content  %}

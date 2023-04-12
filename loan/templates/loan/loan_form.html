@@ -1,20 +1,25 @@
 {% extends "loan/base.html" %}
+{% load tailwind_filters %}
 
 {% block content %}
-  <h1>Loan Application Form</h1>
-  {% if messages %}
-    <ul class="messages">
-      {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <div class="form-actions">
-      <button type="submit" name="submit_and_add" class="btn btn-secondary">Save and Add Another</button>
-      <a href="{% url 'loan_list' %}" class="btn btn-link">Cancel</a>
-    </div>
-  </form>
+<div class="flex flex-row justify-center m-5">
+  <div class='w-full max-w-md'>
+    <h1 class="text-3xl font-bold mb-5">Loan Application Form</h1>
+    {% if messages %}
+      <ul class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-5" role="alert">
+        {% for message in messages %}
+          <li class="mb-2">{% if message.tags %}{{ message|capfirst }}{% else %}{{ message }}{% endif %}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <div class="mt-5 flex flex-row justify-between">
+        <button type="submit" name="submit_and_add" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Save and Add Another</button>
+        <a href="{% url 'loan_list' %}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}

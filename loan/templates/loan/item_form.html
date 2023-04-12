@@ -1,16 +1,19 @@
 {% extends 'loan/base.html' %}
+{% load tailwind_filters %}
 
 {% block content %}
-  <h1>Add Loan</h1>
-
-  <form method="post">
-    {% csrf_token %}
-    <input type="hidden" name="num_forms" value="{{ forms|length }}">
-
-    
-      {{ form.as_p }}
-  
-
-    <button type="submit">Save</button>
-  </form>
+  <div class="flex flex-row grid grid-cols-12 gap-0 m-5">
+    <div class="col-span-7 col-start-4">
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="num_forms" value="{{ forms|length }}">
+        {{ form|crispy }}
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mr-4">Save</button>
+        <a href="#" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-4">Cancel</a>
+      </form>
+    </div>
+    <div class="w-3/4 ml-8">
+      <!-- Add your existing main content here -->
+    </div>
+  </div>
 {% endblock %}
