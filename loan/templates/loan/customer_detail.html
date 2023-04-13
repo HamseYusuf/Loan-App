@@ -6,7 +6,7 @@
     <h1 class="text-2xl font-semibold mb-5">Customer Detail</h1>
 
     <div class="mb-10">
-      <h2 class="text-xl font-semibold">{{ customer.customer_name }}</h2>
+      <h2 class="text-xl font-semibold">{{ customer.customer_name | title }}</h2>
       <p class="text-sm text-gray-500">Email: {{ customer.customer_email }}</p>
       <p class="text-sm text-gray-500">Phone Number: {{ customer.customer_phone_number }}</p>
     </div>

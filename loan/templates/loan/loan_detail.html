@@ -1,14 +1,64 @@
 {% extends "loan/base.html" %}
 
 {% block content %}
-  <h1>Loan Application Detail</h1>
-  <ul>
-    <li>Customer Name: {{ loan.customer }}</li>
-    <li>Item Name: {{ loan.item }}</li>
-    <li>Quantity: {{ loan.quantity }}</li>
-    <li>Starting Date: {{ loan.starting_date }}</li>
-    <li>Ending Date: {{ loan.ending_date }}</li>
-  </ul>
-  <a href="{% url 'loan_update' loan.id %}">Update</a> |
-  <a href="{% url 'loan_delete' loan.id %}">Delete</a>
-{% endblock %}
+<div class="grid grid-cols-12 gap-0 m-5">
+  <div class="col-span-10 col-start-3">
+    <h1 class="text-2xl font-bold mb-5">Loan Application Details</h1>
+
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
+      <div class="-mx-3 md:flex mb-6">
+        <div class="md:w-1/3 px-3 mb-6 md:mb-0">
+          <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="customer-name">
+            Customer Name
+          </label>
+          <p class="text-grey-dark">{{ loan.customer | title }}</p>
+        </div>
+        <div class="md:w-1/3 px-3">
+          <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="item-name">
+            Item Name
+          </label>
+          <p class="text-grey-dark">{{ loan.item }}</p>
+        </div>
+        <div class="md:w-1/3 px-3">
+          <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="quantity">
+            Quantity
+          </label>
+          <p class="text-grey-dark">{{ loan.quantity }}</p>
+        </div>
+      </div>
+  
+      <div class="-mx-3 md:flex mb-6">
+        <div class="md:w-1/3 px-3">
+          <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="starting-date">
+            Starting Date
+          </label>
+          <p class="text-grey-dark">{{ loan.starting_date }}</p>
+        </div>
+        <div class="md:w-1/3 px-3">
+          <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="ending-date">
+            Ending Date
+          </label>
+          <p class="text-grey-dark">{{ loan.ending_date }}</p>
+        </div>
+        <div class="md:w-1/3 px-3">
+          <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="total-price">
+            Total Price
+          </label>
+          <p class="text-grey-dark"> $ {{ loan.get_total_price }}</p>
+        </div>
+      </div>
+  
+      <div class="-mx-3 md:flex mb-6">
+        <div class="md:w-1/3 px-3 md:text-right col-span-6">
+  
+          <a href="{% url 'loan_update' loan.id %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm text-sm">
+            Update
+          </a>
+          <a href="{% url 'loan_delete' loan.id %}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-sm text-sm ml-3">
+            Delete
+          </a>
+       
+          
+        </div>
+      </div>
+    {% endblock content  %}

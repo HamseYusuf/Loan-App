@@ -1,17 +1,38 @@
 {% extends 'loan/base.html' %}
+
 {% block content %}
-<h1> Dashboard</h1>
-<a href = {% url 'loan_list' %}> Loan List </a>
-<div>
-    <a href = {% url 'items' %}> item List </a>
-
+<div class="grid grid-cols-12 gap-0 m-5">>
+    <div class="col-span-10 col-start-3">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+      <!-- Loan count card -->
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <h2 class="text-lg font-bold mb-4">Loans</h2>
+        <p class="text-gray-700 text-3xl font-semibold">{{ loan_count }}</p>
+        <p class="text-gray-500">Total loans</p>
+      </div>
+  
+      <!-- Item count card -->
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <h2 class="text-lg font-bold mb-4">Items</h2>
+        <p class="text-gray-700 text-3xl font-semibold">{{ item_count }}</p>
+        <p class="text-gray-500">Total items</p>
+      </div>
+  
+      <!-- Customer count card -->
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <h2 class="text-lg font-bold mb-4">Customers</h2>
+        <p class="text-gray-700 text-3xl font-semibold">{{ customer_count }}</p>
+        <p class="text-gray-500">Total customers</p>
+      </div>
+  
+      <!-- Active loans count card -->
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <h2 class="text-lg font-bold mb-4">Active Loans</h2>
+        <p class="text-gray-700 text-3xl font-semibold">{{ active_loans_count }}</p>
+        <p class="text-gray-500">Total active loans</p>
+      </div>
+    </div>
+    </div>
 </div>
-
-<div>
-    <a href = {% url 'customer' %}> customer List </a>
-
 </div>
-
-
-
 {% endblock content %}

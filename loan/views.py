@@ -4,6 +4,11 @@ from .forms import LoanForm, ItemForm, CustomerForm
 from django.contrib import messages
 
 
+
+def dashboard(request):
+    return render(request, 'loan/dashboard.html')
+
+
 def loan_list(request):
     loans = Loan.objects.all()
     context = {
@@ -12,8 +17,7 @@ def loan_list(request):
     return render(request, 'loan/loan_list.html', context)
 
 
-def dashboard(request):
-    return render(request, 'loan/dashboard.html')
+
 
 
 def items(request):

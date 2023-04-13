@@ -1,32 +1,71 @@
 {% extends 'loan/base.html' %}
 
 {% block content %}
-<h1>All Loans</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Customer Name</th>
-      <th>Item Name</th>
-      <th>Quantity</th>
-      <th>Start Date</th>
-      <th>End Date</th>
-      <th>Total Price</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for loan in loans %}
-    <tr>
-      <td>{{ loan.customer.customer_name }}</td>
-      <td>{{ loan.item.item_name }}</td>
-      <td>{{ loan.quantity }}</td>
-      <td>{{ loan.starting_date }}</td>
-      <td>{{ loan.ending_date }}</td>
-      <td>{{ loan.total_price }}</td>
-      <td><a href="{% url 'loan_detail' loan.id %}">View Details</a></td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="grid grid-cols-12 gap-0 m-5">
+    <div class="col-span-10 col-start-3">
+        <div class="flex justify-between items-center mb-5">
+            <h1 class="text-2xl font-semibold">All Loans</h1>
+            <a href="{% url 'loan_create' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm text-sm ml-2">
+                Add Loan
+            </a>
+        </div>
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 col-span-12">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-10 py-4">
+                            Customer Name
+                        </th>
+                        <th scope="col" class="px-10 py-4">
+                            Item Name
+                        </th>
+                        <th scope="col" class="px-10 py-4">
+                            Quantity
+                        </th>
+                        <th scope="col" class="px-10 py-4">
+                            Start Date
+                        </th>
+                        <th scope="col" class="px-10 py-4">
+                            End Date
+                        </th>
+                        <th scope="col" class="px-10 py-4">
+                            Total Price
+                        </th>
+                        <th scope="col" class="px-10 py-4">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for loan in loans %}
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td class="px-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ loan.customer.customer_name | title }}
+                        </td>
+                        <td class="px-10 py-4">
+                            {{ loan.item.item_name }}
+                        </td>
+                        <td class="px-10 py-4">
+                            {{ loan.quantity }}
+                        </td>
+                        <td class="px-10 py-4">
+                            {{ loan.starting_date }}
+                        </td>
+                        <td class="px-10 py-4">
+                            {{ loan.ending_date }}
+                        </td>
+                        <td class="px-10 py-4">
+                           $ {{ loan.get_total_price }}
+                        </td>
+                        <td class="px-10 py-4">
+                            <a href="{% url 'loan_detail' loan.id %}" class="text-blue-600 hover:text-blue-700">View Details</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}
